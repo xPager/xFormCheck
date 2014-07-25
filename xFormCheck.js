@@ -27,6 +27,15 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
 © xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 0.0.1 - 25.07.2014
 #####################################################################################################################*/
 
+(function($){
+	$.fn.xFormCheck = function(options){
+		if(!options){var options = {};}
+		return this.each(function() {
+			 options.formObject = this;
+			new xFormCheck(options);
+		});
+	}
+}(jQuery));
 
 var xFormCheck = function(options) {
 	// Set Options
