@@ -8,19 +8,25 @@ HTML
 
 ``` html
 <form name="form" method="post" action="">
-	<input type="text" name="firstname" class="input_must">
-	<input type="text" name="lastname" class="input_must opt">
-	<input type="email" name="email" class="input_mail">
-	<input type="email2" name="email2" class="input_mail donotcheck">
-	<input type="text" name="produktenummer" class="input_reg" cis-reg="^\d{1,2}\.\d{1,2}\.\d{4}$" />
-	<fieldset class="inline checkboxCheck input_must">
-		Gender <span class="star">*</span>
+	<div class="inline checkboxCheck input_must">
+		Gender <span class="star">*</span><br />
 		<input type="radio" name="gender" value="male">
-		<label for="male" class="inline">Male</label>
-		<input type="radio" name="gender" value="female">
-		<label for="female" class="inline">Female</label>
-	</fieldset>
-  <input type="submit" name="submit" value="Send">
+			<label for="male" class="inline">Male</label><br />
+			<input type="radio" name="gender" value="female">
+			<label for="female" class="inline">Female</label><br />
+		</div>
+		<label>Firstname</label>
+		<input type="text" name="firstname" class="input_must"><br />
+		<label>Lastname</label>
+		<input type="text" name="lastname" class="input_must opt"><br />
+		<label>E-Mail</label>
+		<input type="email" name="email" data-equal="#email2" class="input_mail"><br />
+		<label>E-Mail (Check)</label>
+		<input type="email2" name="email2" id="email2" class="input_mail"><br />
+		<label>Productnummber</label>
+		<input type="text" name="produktenummer" class="input_reg" cis-reg="^\d{1,2}\.\d{1,2}\.\d{4}$" /><br />
+		<label>Gender</label>
+	<input type="submit" name="submit" value="Send"><br />
 </form>
 ```
 
