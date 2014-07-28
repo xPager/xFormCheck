@@ -4,7 +4,7 @@
 		<script src="xFormCheck.js"></script>
 		<script>
 			$(document).ready(function(){
-				$(".form").xFormCheck();
+				$("form").xFormCheck();
 			});
 		</script>
 		<style>
@@ -18,9 +18,68 @@
 		</style>
 	</head>
 	<body>
-		<form class="form" type"post" action="#">
-			<input class="input_must" type="text" />
-			<input type="submit" />
+		<form name="form" method="post" action="">
+		  <p>
+			<label for="fname">First Name <span class="star">*</span></label>
+			<input type="text" name="fname" id="fname" class="input_must">
+		  </p>
+		  <p>
+			<label for="lname">Last Name <span class="star">*</span></label>
+			<input type="text" name="lname" id="lname"  class="input_must">
+		  </p>
+		  <p>
+			<label for="email">Email <span class="star">*
+			  </span></label>
+			<input type="email" name="email" id="email" class="input_mail">
+		  </p>
+		  <p class="instructions-container">
+			<label for="password">Password <span class="star">*</span> <span class="instructions">Use 6-20 characters, at least 1 uppercase letter and 1 number.</span></label>
+			<input type="password" name="password" id="password">
+		  </p>
+		  <p class="instructions-container">
+			<label for="bday">Birthday <span class="star">*</span> <span class="instructions">MM/DD/YYYY</span></label>
+			<input type="date" name="bday" id="bday">
+		  </p>
+		  <fieldset class="inline">
+			Gender <span class="star">*</span>
+			<input type="radio" name="gender" value="male" id="male">
+			<label for="male" class="inline">Male</label>
+			<input type="radio" name="gender" value="female" id="female">
+			<label for="female" class="inline">Female</label>
+		  </fieldset>
+		  <p>
+			<label for="areacode">Phone <span class="star">*</span> <span class="hidden">Area Code</span></label>
+			<input type="tel" name="areacode" id="areacode" maxlength="3">
+			-
+			<label for="threedigits" class="inline"> <span class="hidden">First Three Phone Digits</span> <span class="star">*</span></label>
+			<input type="tel" name="threedigits" id="threedigits" maxlength="3">
+			-
+			<label for="fourdigits" class="inline"> <span class="hidden">Last Four Phone Digits</span> <span class="star">*</span></label>
+			<input type="tel" name="fourdigits" id="fourdigits" maxlength="4">
+		  </p>
+		  <p>
+			<label for="location">Location <span class="star">*
+			  </span></label>
+			<select id="location" name="location">
+			  <option value="VN"> Vietnam (Việt Nam) </option>
+			  <option value="WF"> Wallis and Futuna </option>
+			  <option value="EH"> Western Sahara (‫الصحراء الغربية‬‎) </option>
+			  <option value="YE"> Yemen (‫اليمن‬‎) </option>
+			  <option value="ZM"> Zambia </option>
+			  <option value="ZW"> Zimbabwe </option>
+			</select>
+		  </p>
+		  <p class="instructions-container">
+			<label for="zip">Zip Code <span class="instructions">5 Digits</span></label>
+			<input type="number" maxlength="5" min="0" name="zip" id="zip">
+		  </p>
+		  <p>
+			<input type="checkbox" name="tos" id="tos">
+			<label for="tos" class="inline"><span class="star">*</span> I agree to terms of service.</label>
+		  </p>
+		  <p>
+			<input type="submit" name="submit" id="submit" value="Sign Up">
+		  </p>
 		</form>
 	</body>
 </html>

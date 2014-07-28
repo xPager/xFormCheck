@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 0.1.1 - 25.07.2014
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 0.1.1 - 28.07.2014
 Controls with jQuery 2.1.1
 #####################################################################################################################*/
 
@@ -41,26 +41,26 @@ Controls with jQuery 2.1.1
 var xFormCheck = function(options) {
 	// Set Options
 	this.options = $.extend({
-		formID: false,
-		formObject:false,
-		skey: 0,
-		sfeldID: 'sfeldID',
-		classnameDefault: 'input_must',
-		classnameNum: 'input_num',
-		classnameDate: 'input_date',
-		classnameMail: 'input_mail',
-		classnameTel: 'input_tel',
-		classnameUrl: 'input_url',
-		classnameReg: 'input_reg',
-		classnameTrue: 'input_true',
-		classnameFalse: 'input_false',
-		classnameTapFalse: 'tap_false',
-		classnameOptional: 'opt',
-		outputErrorID: 'FormError',
-		onError:false,
-		onChecked:false,
-		outputID: false,
-		ajaxSubmit: true,
+		formID: false,							// Form ID
+		formObject:false,						// Form Object
+		skey: 0,								// Spam check (key)
+		sfeldID: 'sfeldID',						// Spam check (Input ID)
+		classnameDefault: 'input_must',			// Not NULL class
+		classnameNum: 'input_num',				// Nummber class
+		classnameDate: 'input_date',			// Date class
+		classnameMail: 'input_mail',			// Mail class
+		classnameTel: 'input_tel',				// Tel class
+		classnameUrl: 'input_url',				// Url class
+		classnameReg: 'input_reg',				// RegExp class code (data-reg="^\d{1,2}\$")
+		classnameTrue: 'input_true',			// True class
+		classnameFalse: 'input_false',			// False class
+		classnameTapFalse: 'tap_false',			// Bootstrap (Tabbabke)
+		classnameOptional: 'opt',				// Optional Null or (E-Mail,Date.....)
+		onError:false,							// Function on Error
+		onChecked:false,						// Function is Checkt
+		ajaxSubmit: false,						// Sendform white Ajax
+		outputID: false,						// Ajax ID Output Field
+		outputErrorID: 'FormError',				// Ajax ID Output Error Field
 		beta: false
 	},options);
 	
@@ -119,7 +119,7 @@ xFormCheck.prototype = {
 			$(this).parent("div").find("input,select,textarea").focus();
 		});
 		// Submit Event
-		//$(this.form).die('submit');
+		$(this.form).off('submit');
 		$("body").on("submit",this.form,function(event){
 			if(!$(this).hasClass("donotsend")){
 				event.preventDefault(event);
