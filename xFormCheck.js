@@ -24,7 +24,8 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 0.0.1 - 25.07.2014
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 0.1.1 - 25.07.2014
+Controls with jQuery 2.1.1
 #####################################################################################################################*/
 
 (function($){
@@ -118,8 +119,8 @@ xFormCheck.prototype = {
 			$(this).parent("div").find("input,select,textarea").focus();
 		});
 		// Submit Event
-		$(this.form).die('submit');
-		$(this.form).live("submit",function(event){
+		//$(this.form).die('submit');
+		$("body").on("submit",this.form,function(event){
 			if(!$(this).hasClass("donotsend")){
 				event.preventDefault(event);
 				self.formCheck(function(){
@@ -136,11 +137,11 @@ xFormCheck.prototype = {
 		});
 
 		// Checkbox Event
-		$(this.form).find("input[type='checkbox']").live("click",function(){
+		$("body").find("input[type='checkbox']").on("click",this.form,function(){
 			if(self.firstCheck){self.formCheck();}	
 		});
 		// Live Check Event
-		$(this.form).find("input,select,textarea").live("keyup mouseenter change",function(){ //Iframe Neu
+		$("body").find("input,select,textarea").on("keyup mouseenter change",this.form,function(){ //Iframe Neu
 			if(self.firstCheck){self.formCheck();}
 		});
 		// Check Date Picker
@@ -315,7 +316,7 @@ xFormCheck.prototype = {
 			}
 		});
 		// jQueryUI Tabs
-		$(this.form).find("##tabs li").each(function(i, obj) {
+		$(this.form).find("#tabs li").each(function(i, obj) {
 			$(obj).removeClass(self.classnameTapFalse);
 			if($(self.form).find($.trim($(obj).children("a").attr("href"))).find("."+self.classnameFalse).length > 0){
 				$(obj).addClass(self.classnameTapFalse);
