@@ -11,6 +11,7 @@ HTML
 	<input type="text" name="firstname" class="input_must">
 	<input type="text" name="lastname" class="input_must opt">
 	<input type="email" name="email" class="input_mail">
+	<input type="email2" name="email2" class="input_mail donotcheck">
 	<input type="text" name="produktenummer" class="input_reg" cis-reg="^\d{1,2}\.\d{1,2}\.\d{4}$" />
 	<fieldset class="inline checkboxCheck input_must">
 		Gender <span class="star">*</span>
