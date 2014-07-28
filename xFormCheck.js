@@ -119,7 +119,7 @@ xFormCheck.prototype = {
 			$(this).parent("div").find("input,select,textarea").focus();
 		});
 		// Submit Event
-		$(this.form).off('submit');
+		$("body").off("submit",this.form);
 		$("body").on("submit",this.form,function(event){
 			if(!$(this).hasClass("donotsend")){
 				event.preventDefault(event);
