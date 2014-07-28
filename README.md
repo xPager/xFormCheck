@@ -27,7 +27,6 @@ HTML
 	<input type="text" name="phone" class="input_tel opt"><br />
 	<label>Productnummber</label>
 	<input type="text" name="produktenummer" class="input_reg" data-reg="p+[0-9]{5}" /><br />
-	
   	<input type="submit" name="submit" value="Send">
 </form>
 ```
@@ -41,14 +40,25 @@ $(document).ready(function(){
 	$("form").xFormCheck();
 });
 
-Or
+// OR
 
 $(document).ready(function(){
 	var formCheck = new xFormCheck({
 		formID:"#form1",
 		onChecked:function(self){console.log(self.status);}
 	});
+	
+	// + Extern Send Button
+
+	$('#ex_button').click(function(){ 	// Click event on external button / link
+		if(formCheck.formCheck()){ 	// Check if form is "True"
+			$('#form1').submit(); 	// Send form
+		}
+	});
+
 });
+
+
 ```
 
 Settings
