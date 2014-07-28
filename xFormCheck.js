@@ -170,6 +170,7 @@ xFormCheck.prototype = {
 		this.isRequired();
 		// Is Equal
 		this.isEqual();
+		// Check
 		$(this.form).find("input,select,textarea").not(".donotcheck").each(function(i,obj){
 			$(this).removeClass(self.classnameTrue);
 			$(this).removeClass(self.classnameFalse);
@@ -387,6 +388,7 @@ xFormCheck.prototype = {
 		$(this.form).find("[data-equal]").each(function(i,obj) {
 			var eq = $($(this).attr("data-equal"));
 			if($(this).val() != $(eq).val()){
+				$(eq,this).removeClass(self.classnameTrue);
 				$(eq,this).addClass(self.classnameFalse +" donotcheck");
 				self.status = false;
 			}else{
