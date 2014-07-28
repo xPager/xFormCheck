@@ -4,7 +4,12 @@
 		<script src="xFormCheck.js"></script>
 		<script>
 			$(document).ready(function(){
-				$("form").xFormCheck();
+				/*$("form").xFormCheck();*/
+	
+				var formCheck = new xFormCheck({
+					formID:"#form1",
+					onChecked:function(self){console.log(self.status);}
+				});
 			});
 		</script>
 		<style>
@@ -18,7 +23,7 @@
 		</style>
 	</head>
 	<body>
-		<form name="form" method="post" action="">
+		<form name="form" id="form1" method="post" action="">
 			<div class="inline checkboxCheck input_must">
 				<label>Gender</label> <span class="star">*</span><br />
 				<input type="radio" name="gender" value="male">
@@ -29,13 +34,15 @@
 			<label>Firstname</label>
 			<input type="text" name="firstname" class="input_must"><br />
 			<label>Lastname</label>
-			<input type="text" name="lastname" class="input_must opt"><br />
+			<input type="text" name="lastname" class="input_must"><br />
 			<label>E-Mail</label>
 			<input type="email" name="email" data-equal="#email2" class="input_mail"><br />
 			<label>E-Mail (Check)</label>
-			<input type="email2" name="email2" id="email2" class="input_mail"><br />
+			<input type="email" name="email2" id="email2" class="input_mail"><br />
+			<label>Phone</label>
+			<input type="text" name="phone" class="input_tel opt"><br />
 			<label>Productnummber</label>
-			<input type="text" name="produktenummer" class="input_reg" cis-reg="^\d{1,2}\.\d{1,2}\.\d{4}$" /><br />			
+			<input type="text" name="produktenummer" class="input_reg" data-reg="p+[0-9]{5}" /><br />			
 		  <input type="submit" name="submit" value="Send"><br />
 		</form>
 	</body>

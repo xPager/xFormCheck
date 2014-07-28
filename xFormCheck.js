@@ -221,6 +221,7 @@ xFormCheck.prototype = {
 							$(this).parent("div.customselect").addClass(self.classnameTrue);
 						}
 					}
+					
 					// Optional Abfrage
 					if(self.isOpt(this) && $(this).val() == ""){ 
 						$(this).addClass(self.classnameTrue);
@@ -289,18 +290,20 @@ xFormCheck.prototype = {
 				break;
 			}
 		});
+		
 		// Tap Check (Inner Iframe)
 		this.tabCheck();
+		
 		// Übergebene Function
-		if(this.status && fx){
-			fx();
-		}
-		if(!this.status && this.onError){
-			this.onError();	
-		}
-		if(this.onChecked){this.onChecked();}
+		if(this.status && fx){fx();}
+		if(!this.status && this.onError){this.onError(this);}
+		if(this.onChecked){this.onChecked(this);}
 		return this.status;
 	},
+	
+	
+	// Functions
+	//##################################################
 	
 	// TabCheck (Backend & jQueryUI Tabs)
 	tabCheck:function(){
