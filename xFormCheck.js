@@ -188,17 +188,17 @@ xFormCheck.prototype = {
 				break;
 				default:
 					// Checkbox oder Radiobox (Must Class)
-					if(($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio") && $(this).parents("div.checkboxCheck").hasClass(self.classnameDefault)){
+					if(($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio") && $(this).parents(".checkboxCheck").hasClass(self.classnameDefault)){
 						var checkStatus = false;
-						$(this).parents("div.checkboxCheck").find("input").each(function(i,obj){
+						$(this).parents(".checkboxCheck").find("input").each(function(i,obj){
 							if(this.checked){
-								$(this).parents("div.checkboxCheck").addClass(self.classnameTrue);
-								$(this).parents("div.checkboxCheck").removeClass(self.classnameFalse);
+								$(this).parents(".checkboxCheck").addClass(self.classnameTrue);
+								$(this).parents(".checkboxCheck").removeClass(self.classnameFalse);
 								checkStatus = true;	
 							}else{
 								if(!checkStatus){
-									$(this).parents("div.checkboxCheck").addClass(self.classnameFalse);
-									$(this).parents("div.checkboxCheck").removeClass(self.classnameTrue);
+									$(this).parents(".checkboxCheck").addClass(self.classnameFalse);
+									$(this).parents(".checkboxCheck").removeClass(self.classnameTrue);
 								}
 							}
 						});
