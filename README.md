@@ -10,6 +10,7 @@ HTML
 <form name="form" method="post" action="">
   <input type="text" name="firstname" class="input_must">
   <input type="email" name="email" class="input_mail">
+  <input type="text" name="produktenummer" class="input_reg" cis-reg="^\d{1,2}\.\d{1,2}\.\d{4}$" />
   <input type="submit" name="submit" value="Send">
 </form>
 ```
