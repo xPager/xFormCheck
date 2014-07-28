@@ -8,7 +8,6 @@ HTML
 
 ``` html
 <form name="form" method="post" action="">
-	
 	<div class="inline checkboxCheck input_must">
 		<label>Gender</label> <span class="star">*</span><br />
 		<input type="radio" name="gender" value="male">
@@ -28,7 +27,6 @@ HTML
 	<label>Productnummber</label>
 	<input type="text" name="produktenummer" class="input_reg" cis-reg="^\d{1,2}\.\d{1,2}\.\d{4}$" /><br />			
 	<input type="submit" name="submit" value="Send"><br />
-	
 </form>
 ```
 
@@ -47,8 +45,8 @@ Settings
 
 ``` js
   $(document).ready(function(){
-    $("form").xFormCheck({
-      formID: false,							// Form ID
+	$("form").xFormCheck({
+		formID: false,							// Form ID
   		formObject:false,						// Form Object
   		skey: 0,								// Spam check (key)
   		sfeldID: 'sfeldID',						// Spam check (Input ID)
