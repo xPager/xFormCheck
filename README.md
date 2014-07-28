@@ -35,38 +35,38 @@ Script
 ----
 
 ``` js
-  $(document).ready(function(){
-    $("form").xFormCheck();
-  });
+$(document).ready(function(){
+	$("form").xFormCheck();
+});
 ```
 
 Settings
 ----
 
 ``` js
-  $(document).ready(function(){
+$(document).ready(function(){
 	$("form").xFormCheck({
-		formID: false,							// Form ID
-  		formObject:false,						// Form Object
-  		skey: 0,								// Spam check (key)
-  		sfeldID: 'sfeldID',						// Spam check (Input ID)
+		formID: false,					// Form ID
+  		formObject:false,				// Form Object
+  		skey: 0,					// Spam check (key)
+  		sfeldID: 'sfeldID',				// Spam check (Input ID)
   		classnameDefault: 'input_must',			// Not NULL class
-  		classnameNum: 'input_num',				// Nummber class
+  		classnameNum: 'input_num',			// Nummber class
   		classnameDate: 'input_date',			// Date class
   		classnameMail: 'input_mail',			// Mail class
-  		classnameTel: 'input_tel',				// Tel class
-  		classnameUrl: 'input_url',				// Url class
-  		classnameReg: 'input_reg',				// RegExp class code (data-reg="^\d{1,2}\$")
+  		classnameTel: 'input_tel',			// Tel class
+  		classnameUrl: 'input_url',			// Url class
+  		classnameReg: 'input_reg',			// RegExp class code (data-reg="^\d{1,2}\$")
   		classnameTrue: 'input_true',			// True class
   		classnameFalse: 'input_false',			// False class
   		classnameTapFalse: 'tap_false',			// Bootstrap (Tabbabke)
-  		classnameOptional: 'opt',				// Optional Null or (E-Mail,Date.....)
-  		onError:false,							// Function on Error
-  		onChecked:false,						// Function is Checkt
-  		ajaxSubmit: false,						// Sendform white Ajax
-  		outputID: false,						// Ajax ID Output Field
-  		outputErrorID: 'FormError',				// Ajax ID Output Error Field
-  		beta: false
-    });
-  });
+  		classnameOptional: 'opt',			// Optional Null or (E-Mail,Date.....)
+  		onError:false,					// Function on Error
+  		onChecked:false,				// Function is Checkt
+  		ajaxSubmit: false,				// Sendform white Ajax
+  		outputID: false,				// Ajax ID Output Field
+  		outputErrorID: 'FormError',			// Ajax ID Output Error Field
+		beta: false	
+	});
+});
 ```
