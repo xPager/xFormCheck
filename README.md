@@ -9,8 +9,16 @@ HTML
 ``` html
 <form name="form" method="post" action="">
   <input type="text" name="firstname" class="input_must">
+  <input type="text" name="lastname" class="input_must opt">
   <input type="email" name="email" class="input_mail">
   <input type="text" name="produktenummer" class="input_reg" cis-reg="^\d{1,2}\.\d{1,2}\.\d{4}$" />
+  <fieldset class="inline checkboxCheck input_must">
+			Gender <span class="star">*</span>
+			<input type="radio" name="gender" value="male">
+			<label for="male" class="inline">Male</label>
+			<input type="radio" name="gender" value="female">
+			<label for="female" class="inline">Female</label>
+	</fieldset>
   <input type="submit" name="submit" value="Send">
 </form>
 ```
