@@ -51,8 +51,8 @@ $(document).ready(function(){
 	// + Extern Send Button
 
 	$('#ex_button').click(function(){ 	// Click event on external button / link
-		if(formCheck.formCheck()){ 	// Check if form is "True"
-			$('#form1').submit(); 	// Send form
+		if(formCheck.formCheck()){ 		// Check if form is "True"
+			$('#form1').submit(); 		// Send form
 		}
 	});
 
