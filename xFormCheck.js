@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 0.1.1 - 28.07.2014
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.1 - 31.07.2014
 Controls with jQuery 2.1.1
 #####################################################################################################################*/
 
@@ -119,8 +119,8 @@ xFormCheck.prototype = {
 			$(this).parent("div").find("input,select,textarea").focus();
 		});
 		// Submit Event
-		$("body").off("submit",this.form);
-		$("body").on("submit",this.form,function(event){
+		$(this.form).off("submit");
+		$(this.form).on("submit",function(event){
 			if(!$(this).hasClass("donotsend")){
 				event.preventDefault(event);
 				self.formCheck(function(){
@@ -137,11 +137,11 @@ xFormCheck.prototype = {
 		});
 
 		// Checkbox Event
-		$("body").find("input[type='checkbox']").on("click",this.form,function(){
+		$(this.form).find("input[type='checkbox']").on("click",function(){
 			if(self.firstCheck){self.formCheck();}	
 		});
 		// Live Check Event
-		$("body").find("input,select,textarea").on("keyup mouseenter change",this.form,function(){ //Iframe Neu
+		$(this.form).find("input,select,textarea").on("keyup mouseenter change",function(){ //Iframe Neu
 			if(self.firstCheck){self.formCheck();}
 		});
 		// Check Date Picker
