@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.1 - 31.07.2014
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.2 - 05.08.2014
 Controls with jQuery 2.1.1
 #####################################################################################################################*/
 
@@ -228,13 +228,37 @@ xFormCheck.prototype = {
 					}else{
 						// Num Felder (Class)
 						if($(this).hasClass(self.classnameNum)){
+                            var numStatus = true;
 							if (isNaN($(this).val()) || $(this).val() == ""){
-								$(this).addClass(self.classnameFalse);
-								self.status = false;
-								self.errormessage.push($(this).attr("name"));
-							}else{
-								$(this).addClass(self.classnameTrue);
+								numStatus = false;
 							}
+                                
+                            // Max Num
+                            if(numStatus && $(this).val() > $(this).attr("data-max")){
+                               numStatus = false;
+                               self.errormessage.push("max. "+$(this).attr("data-max"));
+                            }
+                            
+                            // Min Num
+                            if(numStatus && $(this).val() < $(this).attr("data-min")){
+                               numStatus = false;
+                               self.errormessage.push("min. "+$(this).attr("data-min"));
+                            }
+                            
+                            // Dezimal Num
+                            if(numStatus && $(this).attr("data-dez") < self.numDez($(this).val())){
+                               numStatus = false;
+                               self.errormessage.push("dez. "+$(this).attr("data-min"));
+                            }
+                            
+                            if(numStatus){
+                                $(this).addClass(self.classnameTrue);
+                            }else{
+                                $(this).addClass(self.classnameFalse);
+                                self.status = false;
+                                self.errormessage.push($(this).attr("name"));
+                            }
+  
 						}
 						// E-Mail Felder (Class)
 						if($(this).hasClass(self.classnameMail)){
@@ -352,6 +376,15 @@ xFormCheck.prototype = {
 		var regex = new RegExp(reg);
 		return regex.test(string);	
 	},
+    
+    numDez:function(number){
+        if(number.indexOf(".")>0){
+             var s =number.split(".");
+             return s[1].length;
+        }else{
+            return 0;   
+        }
+    },
 	
 	// Function Optional Check
 	isOpt:function(obj){
