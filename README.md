@@ -27,6 +27,8 @@ HTML
 	<input type="text" name="phone" class="input_tel opt"><br />
 	<label>Productnummber</label>
 	<input type="text" name="produktenummer" class="input_reg" data-reg="p+[0-9]{5}" /><br />
+	<label>Zahlen</label>
+	<input type="text" name="produktenummer" class="input_num" data-min="10" data-max="100" data-dez="2" /><br />
   	<input type="submit" name="submit" value="Send">
 </form>
 ```
