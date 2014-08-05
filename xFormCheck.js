@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.2 - 05.08.2014
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.3 - 05.08.2014
 Controls with jQuery 2.1.1
 #####################################################################################################################*/
 
@@ -234,13 +234,13 @@ xFormCheck.prototype = {
 							}
                                 
                             // Max Num
-                            if(numStatus && $(this).val() > $(this).attr("data-max")){
+                            if(numStatus && $(this).val() > parseFloat($(this).attr("data-max"))){
                                numStatus = false;
                                self.errormessage.push("max. "+$(this).attr("data-max"));
                             }
                             
                             // Min Num
-                            if(numStatus && $(this).val() < $(this).attr("data-min")){
+                            if(numStatus && $(this).val() < parseFloat($(this).attr("data-min"))){
                                numStatus = false;
                                self.errormessage.push("min. "+$(this).attr("data-min"));
                             }
