@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.3 - 05.08.2014
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.4 - 29.08.2014
 Controls with jQuery 2.1.1
 #####################################################################################################################*/
 
