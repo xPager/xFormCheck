@@ -143,6 +143,7 @@ xFormCheck.prototype = {
 		// Live Check Event
 		$(this.form).find("input,select,textarea").on("keyup mouseenter change",function(){ //Iframe Neu
 			if(self.firstCheck){self.formCheck();}
+			self.maxLength();
 		});
 		// Check Date Picker
 		if($(this.form).find("input[data-type='datepicker']").length){
@@ -258,7 +259,6 @@ xFormCheck.prototype = {
                                 self.status = false;
                                 self.errormessage.push($(this).attr("name"));
                             }
-  
 						}
 						// E-Mail Felder (Class)
 						if($(this).hasClass(self.classnameMail)){
@@ -394,7 +394,7 @@ xFormCheck.prototype = {
 	isRequired:function(){
 		var self = this;
 		var reOptList = "";
-		$(this.form).find("select[data-required] option:selected").each(function(i,obj) {
+		$(this.form).find("select[data-required] option:selected").each(function(i,obj){
 			if($(obj).attr("data-required") != "" && typeof $(obj).attr("data-required") != 'undefined' && $(this).val() != ""){
 				reOptList += $(obj).attr("data-required")+",";
 			}
@@ -421,7 +421,7 @@ xFormCheck.prototype = {
 	
 	isEqual:function(){
 		var self = this;
-		$(this.form).find("[data-equal]").each(function(i,obj) {
+		$(this.form).find("[data-equal]").each(function(i,obj){
 			var eq = $($(this).attr("data-equal"));
 			if($(this).val() != $(eq).val()){
 				$(eq,this).removeClass(self.classnameTrue);
@@ -433,12 +433,23 @@ xFormCheck.prototype = {
 		});
 	},
 	
+	// Function Max Input Length
+	maxLength:function(){
+		var self = this;
+		$(this.form).find("[maxlength]").each(function(i,obj){
+			var length = $(this).val().length;
+			if($(this).has("[data-maxlengthout]")){
+				$($(this).attr("data-maxlengthout")).html($(this).attr("maxlength")-length);
+			}
+		});
+	},
+	
 	// Function Formular mit Ajax versenden
-	sendByAjax:function() {
+	sendByAjax:function(){
 		var self = this;
 		$.ajax({
 			type: "POST",
-			url: $(self.form).attr("action")+"&skipfurl=1",
+			url: $(self.form).attr("action"),
 			data: $(self.form).serialize(),
 			success: function(data){
 				if($(data).filter(".error").length == 0){
