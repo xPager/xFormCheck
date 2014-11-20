@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.5 - 15.09.2014
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.6 - 20.11.2014
 Controls with jQuery 2.1.1
               jQuery UI 1.11
 #####################################################################################################################*/
@@ -65,36 +65,17 @@ var xFormCheck = function(options) {
 		beta: false
 	},options);
 	
-	// Variabeln
+	// Variable
 	this.status;
 	this.errormessage;
 	this.datepicker;
 	
-	// Options to Var
-	this.id = this.options.formID;
-	this.formObject = this.options.formObject;
-	this.classnameDefault = this.options.classnameDefault;
-	this.classnameNum = this.options.classnameNum;
-	this.classnameDate = this.options.classnameDate;
-	this.classnameMail = this.options.classnameMail;
-	this.classnameTel = this.options.classnameTel;
-	this.classnameUrl = this.options.classnameUrl;
-	this.classnameReg = this.options.classnameReg;
-	this.classnameTrue = this.options.classnameTrue;
-	this.classnameFalse = this.options.classnameFalse;
-	this.classnameTapFalse = this.options.classnameTapFalse;
-	this.classnameOptional =  this.options.classnameOptional;
-	this.sessionPath = this.options.sessionPath;
-	this.skey = this.options.skey;
-	this.sfeldID = this.options.sfeldID;
-	this.outputErrorID = this.options.outputErrorID;
-	this.onError = this.options.onError;
-	this.onChecked = this.options.onChecked;
-	this.outputID = this.options.outputID;
-	this.ajaxSubmit = this.options.ajaxSubmit;
+	// Options to Attribute
+	for(var name in this.options){eval("this."+name+"=this.options."+name);}
+
 	// Normales Formular oder Iframe Form Objekt
 	if(!this.formObject){
-		this.form = $(this.id);
+		this.form = $(this.formID);
 	}else{
 		this.form = this.formObject;
 	}
