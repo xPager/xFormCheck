@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.6 - 20.11.2014
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.7 - 21.07.2015
 Controls with jQuery 2.1.1
               jQuery UI 1.11
 #####################################################################################################################*/
@@ -125,7 +125,7 @@ xFormCheck.prototype = {
 		// Live Check Event
 		$(this.form).find("input,select,textarea").on("keyup mouseenter change",function(){ //Iframe Neu
 			if(self.firstCheck){self.formCheck();}
-			self.maxLength();
+			self.maxLength(this);
 		});
 		// Check Date Picker
 		if($(this.form).find("input[data-type='datepicker']").length){
@@ -416,14 +416,14 @@ xFormCheck.prototype = {
 	},
 	
 	// Function Max Input Length
-	maxLength:function(){
-		var self = this;
-		$(this.form).find("[maxlength]").each(function(i,obj){
-			var length = $(this).val().length;
-			if($(this).has("[data-maxlengthout]")){
-				$($(this).attr("data-maxlengthout")).html($(this).attr("maxlength")-length);
+	maxLength:function(obj){
+        var attr = $(obj).attr("maxlegth");
+        if(typeof attr !== typeof undefined && attr !== false){
+			var length = $(obj).val().length;
+			if(length >= attr){
+				$(obj).val($(obj).val().substring(0,attr));
 			}
-		});
+		}
 	},
 	
 	// Function Formular mit Ajax versenden
