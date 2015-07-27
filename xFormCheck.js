@@ -24,7 +24,7 @@ xxxxxxx      xxxxxxxPPPPPPPPPP          aaaaaaaaaa  aaaa   gggggggg::::::g     e
                                                            ggg::::::ggg                                            
                                                               gggggg
 															  
-© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.7 - 21.07.2015
+© xPager - xFormCheck - Manuel Kleinert - www.xpager.ch - info(at)xpager.ch - v 1.0.8 - 16.07.2015
 Controls with jQuery 2.1.1
               jQuery UI 1.11
 #####################################################################################################################*/
@@ -103,6 +103,7 @@ xFormCheck.prototype = {
 		// Submit Event
 		$(this.form).off("submit");
 		$(this.form).on("submit",function(event){
+            self.firstCheck = true;
 			if(!$(this).hasClass("donotsend")){
 				event.preventDefault(event);
 				self.formCheck(function(){
@@ -120,12 +121,11 @@ xFormCheck.prototype = {
 
 		// Checkbox Event
 		$(this.form).find("input[type='checkbox']").on("click",function(){
-			if(self.firstCheck){self.formCheck();}	
+			self.formCheck();	
 		});
 		// Live Check Event
-		$(this.form).find("input,select,textarea").on("keyup mouseenter change",function(){ //Iframe Neu
-			if(self.firstCheck){self.formCheck();}
-			self.maxLength(this);
+		$(this.form).find("input,select,textarea").on("keyup mouseenter change",function(){
+			self.formCheck();
 		});
 		// Check Date Picker
 		if($(this.form).find("input[data-type='datepicker']").length){
@@ -141,169 +141,175 @@ xFormCheck.prototype = {
 					}
 				});
 			}
-		});		
+		});	
 	},
 	
 	formCheck:function(fx){
 		var self = this;		
 		this.status = true;
-		this.firstCheck = true;
 		this.errormessage = new Array();
 		// Required (Multi Select Check)
 		this.isRequired();
 		// Is Equal
 		this.isEqual();
+        // Check Lenght
+        $(this.form).find("input,select,textarea").each(function(i,obj){
+            self.maxLength(this);
+        });
 		// Check
-		$(this.form).find("input,select,textarea").not(".donotcheck").each(function(i,obj){
-			$(this).removeClass(self.classnameTrue);
-			$(this).removeClass(self.classnameFalse);
-			$(this).parent("div.customselect").removeClass(self.classnameTrue);
-			$(this).parent("div.customselect").removeClass(self.classnameFalse);
-			switch ($(this).attr("name")) {
-				// Spamfilter
-				case(self.sfeldID):
-					if ($(this).val() != self.skey){
-						$(this).addClass(self.classnameFalse);
-						self.status = false;
-						self.errormessage.push("Spamfilter");
-					}else{
-						$(this).addClass(self.classnameTrue);
-					} 
-				break;
-				default:
-					// Checkbox oder Radiobox (Must Class)
-					if(($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio") && $(this).parents(".checkboxCheck").hasClass(self.classnameDefault)){
-						var checkStatus = false;
-						$(this).parents(".checkboxCheck").find("input").each(function(i,obj){
-							if(this.checked){
-								$(this).parents(".checkboxCheck").addClass(self.classnameTrue);
-								$(this).parents(".checkboxCheck").removeClass(self.classnameFalse);
-								checkStatus = true;	
-							}else{
-								if(!checkStatus){
-									$(this).parents(".checkboxCheck").addClass(self.classnameFalse);
-									$(this).parents(".checkboxCheck").removeClass(self.classnameTrue);
-								}
-							}
-						});
-						if(!checkStatus){
-							self.status = false;
-							self.errormessage.push($(this).attr("name"));
-						}
-						
-					}
-					// Must Felder (Class)
-					if($(this).hasClass(self.classnameDefault)){
-						if ($(this).val() == ""){
-							$(this).addClass(self.classnameFalse);
-							$(this).parent("div.customselect").addClass(self.classnameFalse);
-							self.status = false;
-							self.errormessage.push($(this).attr("name"));
-						}else{
-							$(this).addClass(self.classnameTrue);
-							$(this).parent("div.customselect").addClass(self.classnameTrue);
-						}
-					}
-					
-					// Optional Abfrage
-					if(self.isOpt(this) && $(this).val() == ""){ 
-						$(this).addClass(self.classnameTrue);
-					}else{
-						// Num Felder (Class)
-						if($(this).hasClass(self.classnameNum)){
-                            var numStatus = true;
-							if (isNaN($(this).val()) || $(this).val() == ""){
-								numStatus = false;
-							}
+        if(this.firstCheck){
+    		$(this.form).find("input,select,textarea").not(".donotcheck").each(function(i,obj){
+    			$(this).removeClass(self.classnameTrue);
+    			$(this).removeClass(self.classnameFalse);
+    			$(this).parent("div.customselect").removeClass(self.classnameTrue);
+    			$(this).parent("div.customselect").removeClass(self.classnameFalse);
+    			switch ($(this).attr("name")) {
+    				// Spamfilter
+    				case(self.sfeldID):
+    					if ($(this).val() != self.skey){
+    						$(this).addClass(self.classnameFalse);
+    						self.status = false;
+    						self.errormessage.push("Spamfilter");
+    					}else{
+    						$(this).addClass(self.classnameTrue);
+    					} 
+    				break;
+    				default:
+    					// Checkbox oder Radiobox (Must Class)
+    					if(($(this).attr("type") == "checkbox" || $(this).attr("type") == "radio") && $(this).parents(".checkboxCheck").hasClass(self.classnameDefault)){
+    						var checkStatus = false;
+    						$(this).parents(".checkboxCheck").find("input").each(function(i,obj){
+    							if(this.checked){
+    								$(this).parents(".checkboxCheck").addClass(self.classnameTrue);
+    								$(this).parents(".checkboxCheck").removeClass(self.classnameFalse);
+    								checkStatus = true;	
+    							}else{
+    								if(!checkStatus){
+    									$(this).parents(".checkboxCheck").addClass(self.classnameFalse);
+    									$(this).parents(".checkboxCheck").removeClass(self.classnameTrue);
+    								}
+    							}
+    						});
+    						if(!checkStatus){
+    							self.status = false;
+    							self.errormessage.push($(this).attr("name"));
+    						}
+    						
+    					}
+    					// Must Felder (Class)
+    					if($(this).hasClass(self.classnameDefault)){
+    						if ($(this).val() == ""){
+    							$(this).addClass(self.classnameFalse);
+    							$(this).parent("div.customselect").addClass(self.classnameFalse);
+    							self.status = false;
+    							self.errormessage.push($(this).attr("name"));
+    						}else{
+    							$(this).addClass(self.classnameTrue);
+    							$(this).parent("div.customselect").addClass(self.classnameTrue);
+    						}
+    					}
+    					
+                        
+    					// Optional Abfrage
+    					if(self.isOpt(this) && $(this).val() == ""){ 
+    						$(this).addClass(self.classnameTrue);
+    					}else{                       
+    						// Num Felder (Class)
+    						if($(this).hasClass(self.classnameNum)){
+                                var numStatus = true;
+    							if (isNaN($(this).val()) || $(this).val() == ""){
+    								numStatus = false;
+    							}
+                                    
+                                // Max Num
+                                if(numStatus && $(this).val() > parseFloat($(this).attr("data-max"))){
+                                   numStatus = false;
+                                   self.errormessage.push("max. "+$(this).attr("data-max"));
+                                }
                                 
-                            // Max Num
-                            if(numStatus && $(this).val() > parseFloat($(this).attr("data-max"))){
-                               numStatus = false;
-                               self.errormessage.push("max. "+$(this).attr("data-max"));
-                            }
-                            
-                            // Min Num
-                            if(numStatus && $(this).val() < parseFloat($(this).attr("data-min"))){
-                               numStatus = false;
-                               self.errormessage.push("min. "+$(this).attr("data-min"));
-                            }
-                            
-                            // Dezimal Num
-                            if(numStatus && $(this).attr("data-dez") < self.numDez($(this).val())){
-                               numStatus = false;
-                               self.errormessage.push("dez. "+$(this).attr("data-min"));
-                            }
-                            
-                            if(numStatus){
-                                $(this).addClass(self.classnameTrue);
-                            }else{
-                                $(this).addClass(self.classnameFalse);
-                                self.status = false;
-                                self.errormessage.push($(this).attr("name"));
-                            }
-						}
-						// E-Mail Felder (Class)
-						if($(this).hasClass(self.classnameMail)){
-							if (!self.isEmail($(this).val())) {
-								$(this).addClass(self.classnameFalse);
-								self.status = false;
-								self.errormessage.push($(this).attr("name"));
-							} else {
-								$(this).addClass(self.classnameTrue);
-							}
-						}
-						// Date Felder (Class)
-						if($(this).hasClass(self.classnameDate)){
-							if(!self.isDate($(this).val())){
-								$(this).addClass(self.classnameFalse);
-								self.status = false;
-								self.errormessage.push($(this).attr("name"));
-							} else {
-								$(this).addClass(self.classnameTrue);
-							}
-						}
-						// Telefon Felder (Class)
-						if($(this).hasClass(self.classnameTel)){
-							if (!self.isTel($(this).val())) {
-								$(this).addClass(self.classnameFalse);
-								self.status = false;
-								self.errormessage.push($(this).attr("name"));
-							} else {
-								$(this).addClass(self.classnameTrue);
-							}
-						}
-						// URL Felder (Class)
-						if($(this).hasClass(self.classnameUrl)){
-							if (!self.isUrl($(this).val())) {
-								$(this).addClass(self.classnameFalse);
-								self.status = false;
-								self.errormessage.push($(this).attr("name"));
-							} else {
-								$(this).addClass(self.classnameTrue);
-							}
-						}
-						// RegExp (Prüfen nach Code = http://de.selfhtml.org/javascript/objekte/regexp.htm)
-						if($(this).hasClass(self.classnameReg)){
-							if (!self.regExpCheck($(this).attr("data-reg"),$(this).val())) {
-								$(this).addClass(self.classnameFalse);
-								self.status = false;
-								self.errormessage.push($(this).attr("name"));
-							} else {
-								$(this).addClass(self.classnameTrue);
-							}
-						}
-					}
-				break;
-			}
-		});
+                                // Min Num
+                                if(numStatus && $(this).val() < parseFloat($(this).attr("data-min"))){
+                                   numStatus = false;
+                                   self.errormessage.push("min. "+$(this).attr("data-min"));
+                                }
+                                
+                                // Dezimal Num
+                                if(numStatus && $(this).attr("data-dez") < self.numDez($(this).val())){
+                                   numStatus = false;
+                                   self.errormessage.push("dez. "+$(this).attr("data-min"));
+                                }
+                                
+                                if(numStatus){
+                                    $(this).addClass(self.classnameTrue);
+                                }else{
+                                    $(this).addClass(self.classnameFalse);
+                                    self.status = false;
+                                    self.errormessage.push($(this).attr("name"));
+                                }
+    						}
+    						// E-Mail Felder (Class)
+    						if($(this).hasClass(self.classnameMail)){
+    							if (!self.isEmail($(this).val())) {
+    								$(this).addClass(self.classnameFalse);
+    								self.status = false;
+    								self.errormessage.push($(this).attr("name"));
+    							} else {
+    								$(this).addClass(self.classnameTrue);
+    							}
+    						}
+    						// Date Felder (Class)
+    						if($(this).hasClass(self.classnameDate)){
+    							if(!self.isDate($(this).val())){
+    								$(this).addClass(self.classnameFalse);
+    								self.status = false;
+    								self.errormessage.push($(this).attr("name"));
+    							} else {
+    								$(this).addClass(self.classnameTrue);
+    							}
+    						}
+    						// Telefon Felder (Class)
+    						if($(this).hasClass(self.classnameTel)){
+    							if (!self.isTel($(this).val())) {
+    								$(this).addClass(self.classnameFalse);
+    								self.status = false;
+    								self.errormessage.push($(this).attr("name"));
+    							} else {
+    								$(this).addClass(self.classnameTrue);
+    							}
+    						}
+    						// URL Felder (Class)
+    						if($(this).hasClass(self.classnameUrl)){
+    							if (!self.isUrl($(this).val())) {
+    								$(this).addClass(self.classnameFalse);
+    								self.status = false;
+    								self.errormessage.push($(this).attr("name"));
+    							} else {
+    								$(this).addClass(self.classnameTrue);
+    							}
+    						}
+    						// RegExp (Prüfen nach Code = http://de.selfhtml.org/javascript/objekte/regexp.htm)
+    						if($(this).hasClass(self.classnameReg)){
+    							if (!self.regExpCheck($(this).attr("data-reg"),$(this).val())) {
+    								$(this).addClass(self.classnameFalse);
+    								self.status = false;
+    								self.errormessage.push($(this).attr("name"));
+    							} else {
+    								$(this).addClass(self.classnameTrue);
+    							}
+    						}
+    					}
+    				break;
+    			}
+    		});
 		
-		// Tap Check (Inner Iframe)
-		this.tabCheck();
-		
-		// Übergebene Function
-		if(this.status && fx){fx();}
-		if(!this.status && this.onError){this.onError(this);}
-		if(this.onChecked){this.onChecked(this);}
+    		// Tap Check (Inner Iframe)
+    		this.tabCheck();
+    		
+    		// Übergebene Function
+    		if(this.status && fx){fx();}
+    		if(!this.status && this.onError){this.onError(this);}
+    		if(this.onChecked){this.onChecked(this);}
+        }
 		return this.status;
 	},
 	
